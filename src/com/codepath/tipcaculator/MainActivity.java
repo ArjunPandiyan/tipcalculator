@@ -24,19 +24,28 @@ public class MainActivity extends Activity {
 	}
 	
 	public void tenPercentTip(View v){
-		setBillWithTip(Integer.parseInt(billAmount.getText().toString()),10);
+		if(isNumeric(billAmount.getText().toString()))
+			setBillWithTip(Float.parseFloat(billAmount.getText().toString()),10);
+		else
+			setError();
 	}
 	
 	public void fifteenPercentTip(View v){
-		setBillWithTip(Integer.parseInt(billAmount.getText().toString()),15);
+		if(isNumeric(billAmount.getText().toString()))
+			setBillWithTip(Float.parseFloat(billAmount.getText().toString()),15);
+		else
+			setError();
 	}
 
 	public void twentyPercentTip(View v){
-		setBillWithTip(Integer.parseInt(billAmount.getText().toString()),20);
+		if(isNumeric(billAmount.getText().toString()))
+			setBillWithTip(Float.parseFloat(billAmount.getText().toString()),20);
+		else 
+			 setError();
 	}
 	
-	public void setBillWithTip(int _billAmount, int _percent){
-		int result=0;
+	public void setBillWithTip(float _billAmount, float _percent){
+		float result=0;
 		if(_billAmount==0){
 			//Result Field is set to 0
 			TipIncluded.setText("0");
@@ -45,6 +54,24 @@ public class MainActivity extends Activity {
 			result = _billAmount + (_billAmount * _percent/100);
 			TipIncluded.setText(String.valueOf(result));
 		}
+	}
+	
+	public boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    Double.parseDouble(str);
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
+	
+	private void setError() {
+		billAmount.setError("Input must be numeric");
+		TipIncluded.setText("");
 	}
 }
 
